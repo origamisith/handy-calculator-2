@@ -3,33 +3,22 @@ package com.lsedillo.Model;
 import java.util.ArrayList;
 
 public class Decimal extends Number{
-    private final long value;
-
-    /**
-     * Constructor that takes a long
-     * @param value The value to pass in
-     */
-    public Decimal(long value) {
-        this.value = value;
-    }
-
+    public static String name = "Decimal";
     /**
      * Constructor that takes a string
      * @param valueString The value to pass in
      */
     public Decimal(String valueString) {
-        this.value = Long.parseLong(valueString);
+        super(valueString);
+        //this.value = Long.parseLong(valueString);
     }
 
     /**
-     * Returns the value that a <code>Deicmal</code> holds as a long
-     * @return long value
+     * Implemented for the sake of uniformity. Returns a clone of itself
+     * @return A Decimal object
      */
-    public long getValue() {
-        return value;
-    }
+    public Decimal toDecimal() {return new Decimal(getValueString());}
 
-    public long toDecimal() {return value; }
     /**
      * Converts to hexadecimal. Uses the division and modulo method which is used for converting
      * any value from decimal to another base
@@ -39,7 +28,7 @@ public class Decimal extends Number{
         ArrayList<Byte> digits = new ArrayList<>(16);
         long q;
         byte r;
-        long whatsLeft = value;
+        long whatsLeft = getValue();
         do {
             q = whatsLeft / 16;
             r = (byte) (whatsLeft % 16);
@@ -54,25 +43,18 @@ public class Decimal extends Number{
      * @return A binary objects
      */
     public Binary toBinary() {
-        ArrayList<Boolean> digits = new ArrayList<>(16);
+        StringBuilder valueBuilder = new StringBuilder();
+        //ArrayList<Boolean> digits = new ArrayList<>(16);
         long q;
         int r;
-        long whatsLeft = value;
+        long whatsLeft = getValue();
         do {
             q = whatsLeft / 2;
             r = (int) whatsLeft % 2;
-            digits.add(r == 1);
+            valueBuilder.append(r);
             whatsLeft = q;
         } while (whatsLeft != 0);
-        return new Binary(digits);
-    }
-
-    /**
-     * Easy implementation based on the long value
-     * @return String representation of the stored long
-     */
-    public String toString() {
-        return "" + value;
+        return new Binary(valueBuilder.toString());
     }
 
 //    public static void main(String[] args) {

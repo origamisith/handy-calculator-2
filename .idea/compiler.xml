@@ -10,7 +10,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="HandyCalculatorCLI" target="6" />
+      <module name="HandyCalculatorCLI" target="14" />
     </bytecodeTargetLevel>
   </component>
 </project>
