@@ -33,6 +33,7 @@ public class MainController {
      * @return The result from whatever method is called.
      */
     private static String calculate(String[] tokens) {
+
         return switch (tokens[0]) {
             case "binary" -> {
                 /*
@@ -54,6 +55,7 @@ public class MainController {
 
                  */
                 BinaryController bcon = new BinaryController(Arrays.copyOfRange(tokens, 1,  tokens.length));
+                yield bcon.parse();
             }
             case "hexadecimal" -> {
                 /*
@@ -74,7 +76,7 @@ public class MainController {
                 };
                 */
                 HexController hcon = new HexController(Arrays.copyOfRange(tokens, 1,  tokens.length));
-                return hcon.parse();
+                yield hcon.parse();
             }
             case "download/upload" -> {
                 double time = Double.parseDouble(tokens[2]);
@@ -108,7 +110,11 @@ public class MainController {
      */
     private static String convert(String[] tokens) {
         return switch(tokens[0]) {
-            case  "binary" -> (new Binary(tokens[3])).toDecimal().toString();
+            case  "binary" -> {
+                //(new Binary(tokens[3])).toDecimal().toString();
+
+                yield BinaryController.convert("Bi)
+            }
             case "hexadecimal" -> (new Hexadecimal(tokens[3])).toDecimal().toString();
             case "decimal" -> {
                 if(tokens[2].equals("hexadecimal")) yield (new Decimal(tokens[3])).toHexadecimal().toString();

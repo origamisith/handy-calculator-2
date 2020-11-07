@@ -6,7 +6,7 @@ public class BinaryController {
        this.tokens = tokens;
     }
     public String parse() {
-
+        /*
         Binary b1 = new Binary(tokens[2]);
         Binary b2 = new Binary(tokens[3]);
         Decimal d1 = b1.toDecimal();
@@ -22,5 +22,10 @@ public class BinaryController {
             }
             default -> "Invalid operator.";
         };
+
+         */
+        return "";
     }
+
+
 }
