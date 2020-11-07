@@ -1,4 +1,6 @@
-package com.lsedillo;
+package com.lsedillo.View;
+
+import com.lsedillo.Controller.MainController;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -34,7 +36,7 @@ public class HandyCalculatorCLI {
                     while(file.hasNext()) {
                         String line = file.nextLine();
                         if(!line.startsWith("//"))
-                            System.out.println(line + ": " + ANSI_GREEN + ParseCommand.chooseMethod(line)+ ANSI_RESET);
+                            System.out.println(line + ": " + ANSI_GREEN + MainController.chooseMethod(line)+ ANSI_RESET);
                     }
                 } catch( IOException e) {
                     System.out.println(ANSI_RED + "File does not exist: " + e + ANSI_RESET);
@@ -48,12 +50,12 @@ public class HandyCalculatorCLI {
                 input = s.nextLine();
             }
             if(input.equalsIgnoreCase("quit")) break;
-            System.out.println(ANSI_GREEN + ParseCommand.chooseMethod(input.toLowerCase()) + ANSI_RESET);
+            System.out.println(ANSI_GREEN + MainController.chooseMethod(input.toLowerCase()) + ANSI_RESET);
         }
     }
     static void help() {
         try {
-            Scanner s = new Scanner(Path.of("com/lsedillo/Help"), StandardCharsets.UTF_8);
+            Scanner s = new Scanner(Path.of("com/lsedillo/View/Help"), StandardCharsets.UTF_8);
             while(s.hasNext()) {
                 System.out.println(s.nextLine());
             }

@@ -1,0 +1,15 @@
+1) Calculate Binary [+,-,*,/] [binary number 1] [binary number 2]
+2) Convert Binary to Decimal [binary number]
+3) Convert Decimal to Binary [decimal]
+4) Calculate Hexadecimal [+,-,*,/] [hex 1] [hex 2]
+5) Convert Hexadecimal to Decimal [hex]
+6) Convert Decimal to Hexadecimal [decimal]
+7) Convert Data Unit to {bits | kilobits | megabits | gigabits | terabits | Bytes | Kilobytes
+     | Megabytes | Gigabytes | Terabytes} [number of units]
+8) Calculate Download/Upload Time [file size] {Bytes | Kilobytes | Megabytes | Gigabytes | Terabytes}
+                                              {bit/s | Kbit/s | Mbit/s | Gbit/s | Tbit/s}
+9) Calculate Website Bandwidth [monthly usage] {per second | per minute | per hour | per day | per week | per month | per year}
+    [average page size] {Bytes | Kilobytes | Megabytes | Gigabytes | Terabytes} [redundancy factor]
+10) Convert Monthly Usage to Bandwidth
+    [monthly usage]{Bytes | Kilobytes | Megabytes | Gigabytes | Terabytes}
+    [bandwidth] {bit/s | Kbit/s | Mbit/s | Gbit/s | Tbit/s}
