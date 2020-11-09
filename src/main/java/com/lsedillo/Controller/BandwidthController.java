@@ -1,4 +1,4 @@
 package com.lsedillo.Controller;
 
-public class DecimalController {
+public class BandwidthController {
 }

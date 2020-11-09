@@ -1,8 +1,9 @@
 package com.lsedillo.Controller;
 
 import java.util.Arrays;
+
+import com.lsedillo.Model.Number;
 import com.lsedillo.View.*;
-import com.lsedillo.Model.*;
 
 
 public class MainController {
@@ -35,50 +36,19 @@ public class MainController {
     private static String calculate(String[] tokens) {
 
         return switch (tokens[0]) {
-            case "binary" -> {
-                /*
-                Binary b1 = new Binary(tokens[2]);
-                Binary b2 = new Binary(tokens[3]);
-                Decimal d1 = b1.toDecimal();
-                Decimal d2 = b2.toDecimal();
-                yield switch(tokens[1]) {
-                    case "+" -> (new Decimal(d1.getValue() + d2.getValue())).toBinary().toString();
-                    case "-" ->(new Decimal(d1.getValue() - d2.getValue())).toBinary().toString();
-                    case "*" -> (new Decimal(d1.getValue() * d2.getValue())).toBinary().toString();
-                    case "/" -> {
-                        String q = (new Decimal(d1.getValue() / d2.getValue())).toBinary().toString();
-                        String r = (new Decimal(d1.getValue() % d2.getValue())).toBinary().toString();
-                        yield q + " Remainder: " + r;
-                    }
-                    default -> "Invalid operator.";
-                };
+            case "binary", "hexadecimal" -> {
+               Number b1 = new Number(tokens[2], tokens[0]);
+               Number b2 = new Number(tokens[3], tokens[0]);
+               Number result = b1.operation(tokens[0].charAt(0), b2);
+               if(tokens[1].equals("/")) {
+                   Number remainder = b1.operation('%', b2);
+                   yield result.toString() + " Remainder: " + remainder.toString();
+               }
+               yield result.toString();
+            }
 
-                 */
-                BinaryController bcon = new BinaryController(Arrays.copyOfRange(tokens, 1,  tokens.length));
-                yield bcon.parse();
-            }
-            case "hexadecimal" -> {
-                /*
-                Hexadecimal h1 = new Hexadecimal(tokens[2]);
-                Hexadecimal h2 = new Hexadecimal(tokens[3]);
-                Decimal d1 = h1.toDecimal();
-                Decimal d2 = h2.toDecimal();
-                yield switch(tokens[1]) {
-                    case "+" -> (new Decimal(d1.getValue() + d2.getValue())).toHexadecimal().toString();
-                    case "-" ->(new Decimal(d1.getValue() - d2.getValue())).toHexadecimal().toString();
-                    case "*" -> (new Decimal(d1.getValue() * d2.getValue())).toHexadecimal().toString();
-                    case "/" -> {
-                        String q = (new Decimal(d1.getValue() / d2.getValue())).toHexadecimal().toString();
-                        String r = (new Decimal(d1.getValue() % d2.getValue())).toHexadecimal().toString();
-                        yield q + " Remainder: " + r;
-                    }
-                    default -> "Invalid operator.";
-                };
-                */
-                HexController hcon = new HexController(Arrays.copyOfRange(tokens, 1,  tokens.length));
-                yield hcon.parse();
-            }
             case "download/upload" -> {
+                /*
                 double time = Double.parseDouble(tokens[2]);
                 DataUnits dataUnit1 = DataUnits.valueOf(tokens[3].toUpperCase());
                 double bandwidth = Double.parseDouble(tokens[4]);
@@ -86,8 +56,12 @@ public class MainController {
                 String dataUnitString = tokens[5].substring(0, tokens[5].indexOf('/'))+ "s";
                 DataUnits dataUnit2 = DataUnits.valueOf(dataUnitString.toUpperCase());
                 yield Bandwidth.downUpTime(time, dataUnit1, bandwidth, dataUnit2);
+
+                 */
+                yield "";
             }
             case "website" -> {
+                /*
                 try {
                     double views = Double.parseDouble(tokens[2]);
                     TimeUnits time = TimeUnits.valueOf(tokens[4].toUpperCase());
@@ -98,8 +72,11 @@ public class MainController {
                 } catch(ArrayIndexOutOfBoundsException e) {
                     yield Calculator.ANSI_RED + "Error: Wrong number of arguments";
                 }
+                */
+                yield "";
             }
             default -> ("Could not calculate; invalid syntax.");
+
         };
     }
 
@@ -113,17 +90,19 @@ public class MainController {
             case  "binary" -> {
                 //(new Binary(tokens[3])).toDecimal().toString();
 
-                yield BinaryController.convert("Bi)
+                yield "";
             }
-            case "hexadecimal" -> (new Hexadecimal(tokens[3])).toDecimal().toString();
+            case "hexadecimal" -> (new Number(tokens[3])).toBase(16).toString();
             case "decimal" -> {
-                if(tokens[2].equals("hexadecimal")) yield (new Decimal(tokens[3])).toHexadecimal().toString();
+                /*if(tokens[2].equals("hexadecimal")) yield (new Decimal(tokens[3])).toHexadecimal().toString();
                 if(tokens[2].equals("binary")) yield (new Decimal(tokens[3])).toBinary().toString();
-                else yield "Cannot convert decimal to that type";
+                else */yield "Cannot convert decimal to that type";
             }
             case "data" -> {
                 Double dataAmount = Double.parseDouble(tokens[4]);
                 String unitsString;
+                yield "";
+                /*
                 //If the data type doesn't include bytes (doesn't have a 'y' in it), then it must include bits.
                 //As my enum is stored in the abbreviated form for the "bit" data units (kbits, gbits, tbits),
                 //I use this to trim the input such that kilobit -> kbits, gigabits -> gbits, and so on.
@@ -134,14 +113,19 @@ public class MainController {
                 DataUnits dataUnit = DataUnits.valueOf(unitsString.toUpperCase());
                 double result  = DataUnits.convert(dataAmount, DataUnits.BITS, dataUnit);
                 yield result + " " + dataUnit.name;
+
+                 */
             }
             case "monthly" -> {
+                /*
                 double dataSize = Double.parseDouble(tokens[4]);
                 DataUnits dataUnit = DataUnits.valueOf(tokens[5].toUpperCase());
                 double bandwidthSize = Double.parseDouble(tokens[6]);
                 //Removing the "/s" and replacing it with "S" for my bandwidth unit
                 DataUnits bandwidthUnit = DataUnits.valueOf(tokens[7].substring(0, tokens[7].indexOf('/')).toUpperCase()+ "S");
-                yield Bandwidth.hostBandwidth(dataSize,dataUnit,bandwidthSize,bandwidthUnit);
+                yield Bandwidth.host Bandwidth(dataSize,dataUnit,bandwidthSize,bandwidthUnit);
+                 */
+                yield "";
             }
             default -> HandyCalculatorCLI.ANSI_RED + "Could not convert; unknown keyword " + tokens[0];
         };

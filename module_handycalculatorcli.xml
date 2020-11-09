@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_handycalculatorcli" default="compile.module.handycalculatorcli">
+  <dirname property="module.handycalculatorcli.basedir" file="${ant.file.module_handycalculatorcli}"/>
+  
+  <property name="module.jdk.home.handycalculatorcli" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.handycalculatorcli" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.handycalculatorcli" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.handycalculatorcli" value="-encoding UTF-8 -source 14 -target 14 ${compiler.args}"/>
+  
+  <property name="handycalculatorcli.output.dir" value="${module.handycalculatorcli.basedir}/target/classes"/>
+  <property name="handycalculatorcli.testoutput.dir" value="${module.handycalculatorcli.basedir}/target/test-classes"/>
+  
+  <path id="handycalculatorcli.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="handycalculatorcli.module.production.classpath">
+    <path refid="${module.jdk.classpath.handycalculatorcli}"/>
+    <pathelement location="${path.variable.maven_repository}/org/apiguardian/apiguardian-api/1.0.0/apiguardian-api-1.0.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/junit/jupiter/junit-jupiter-api/5.4.2/junit-jupiter-api-5.4.2.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/junit/jupiter/junit-jupiter-engine/5.4.2/junit-jupiter-engine-5.4.2.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/junit/jupiter/junit-jupiter-params/5.4.2/junit-jupiter-params-5.4.2.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/junit/jupiter/junit-jupiter/5.4.2/junit-jupiter-5.4.2.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/junit/platform/junit-platform-commons/1.4.2/junit-platform-commons-1.4.2.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/junit/platform/junit-platform-engine/1.4.2/junit-platform-engine-1.4.2.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/opentest4j/opentest4j/1.1.1/opentest4j-1.1.1.jar"/>
+  </path>
+  
+  <path id="handycalculatorcli.runtime.production.module.classpath">
+    <pathelement location="${handycalculatorcli.output.dir}"/>
+    <pathelement location="${path.variable.maven_repository}/org/apiguardian/apiguardian-api/1.0.0/apiguardian-api-1.0.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/junit/jupiter/junit-jupiter-api/5.4.2/junit-jupiter-api-5.4.2.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/junit/jupiter/junit-jupiter-engine/5.4.2/junit-jupiter-engine-5.4.2.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/junit/jupiter/junit-jupiter-params/5.4.2/junit-jupiter-params-5.4.2.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/junit/jupiter/junit-jupiter/5.4.2/junit-jupiter-5.4.2.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/junit/platform/junit-platform-commons/1.4.2/junit-platform-commons-1.4.2.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/junit/platform/junit-platform-engine/1.4.2/junit-platform-engine-1.4.2.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/opentest4j/opentest4j/1.1.1/opentest4j-1.1.1.jar"/>
+  </path>
+  
+  <path id="handycalculatorcli.module.classpath">
+    <path refid="${module.jdk.classpath.handycalculatorcli}"/>
+    <pathelement location="${handycalculatorcli.output.dir}"/>
+    <pathelement location="${path.variable.maven_repository}/org/apiguardian/apiguardian-api/1.0.0/apiguardian-api-1.0.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/junit/jupiter/junit-jupiter-api/5.4.2/junit-jupiter-api-5.4.2.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/junit/jupiter/junit-jupiter-engine/5.4.2/junit-jupiter-engine-5.4.2.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/junit/jupiter/junit-jupiter-params/5.4.2/junit-jupiter-params-5.4.2.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/junit/jupiter/junit-jupiter/5.4.2/junit-jupiter-5.4.2.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/junit/platform/junit-platform-commons/1.4.2/junit-platform-commons-1.4.2.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/junit/platform/junit-platform-engine/1.4.2/junit-platform-engine-1.4.2.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/opentest4j/opentest4j/1.1.1/opentest4j-1.1.1.jar"/>
+    <path refid="library.maven:_org.junit.jupiter:junit-jupiter:5.7.0.classpath"/>
+    <path refid="library.maven:_org.junit.jupiter:junit-jupiter-api:5.7.0.classpath"/>
+    <path refid="library.maven:_org.apiguardian:apiguardian-api:1.1.0.classpath"/>
+    <path refid="library.maven:_org.opentest4j:opentest4j:1.2.0.classpath"/>
+    <path refid="library.maven:_org.junit.platform:junit-platform-commons:1.7.0.classpath"/>
+    <path refid="library.maven:_org.junit.jupiter:junit-jupiter-params:5.7.0.classpath"/>
+    <path refid="library.maven:_org.junit.jupiter:junit-jupiter-engine:5.7.0.classpath"/>
+    <path refid="library.maven:_org.junit.platform:junit-platform-engine:1.7.0.classpath"/>
+  </path>
+  
+  <path id="handycalculatorcli.runtime.module.classpath">
+    <pathelement location="${handycalculatorcli.testoutput.dir}"/>
+    <pathelement location="${handycalculatorcli.output.dir}"/>
+    <pathelement location="${path.variable.maven_repository}/org/apiguardian/apiguardian-api/1.0.0/apiguardian-api-1.0.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/junit/jupiter/junit-jupiter-api/5.4.2/junit-jupiter-api-5.4.2.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/junit/jupiter/junit-jupiter-engine/5.4.2/junit-jupiter-engine-5.4.2.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/junit/jupiter/junit-jupiter-params/5.4.2/junit-jupiter-params-5.4.2.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/junit/jupiter/junit-jupiter/5.4.2/junit-jupiter-5.4.2.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/junit/platform/junit-platform-commons/1.4.2/junit-platform-commons-1.4.2.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/junit/platform/junit-platform-engine/1.4.2/junit-platform-engine-1.4.2.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/opentest4j/opentest4j/1.1.1/opentest4j-1.1.1.jar"/>
+    <path refid="library.maven:_org.junit.jupiter:junit-jupiter:5.7.0.classpath"/>
+    <path refid="library.maven:_org.junit.jupiter:junit-jupiter-api:5.7.0.classpath"/>
+    <path refid="library.maven:_org.apiguardian:apiguardian-api:1.1.0.classpath"/>
+    <path refid="library.maven:_org.opentest4j:opentest4j:1.2.0.classpath"/>
+    <path refid="library.maven:_org.junit.platform:junit-platform-commons:1.7.0.classpath"/>
+    <path refid="library.maven:_org.junit.jupiter:junit-jupiter-params:5.7.0.classpath"/>
+    <path refid="library.maven:_org.junit.jupiter:junit-jupiter-engine:5.7.0.classpath"/>
+    <path refid="library.maven:_org.junit.platform:junit-platform-engine:1.7.0.classpath"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.handycalculatorcli">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.handycalculatorcli">
+    <patternset refid="excluded.from.module.handycalculatorcli"/>
+  </patternset>
+  
+  <path id="handycalculatorcli.module.sourcepath">
+    <dirset dir="${module.handycalculatorcli.basedir}">
+      <include name="src/main/java"/>
+      <include name="src/main/resources"/>
+    </dirset>
+  </path>
+  
+  <path id="handycalculatorcli.module.test.sourcepath">
+    <dirset dir="${module.handycalculatorcli.basedir}">
+      <include name="src/test/java"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.handycalculatorcli" depends="compile.module.handycalculatorcli.production,compile.module.handycalculatorcli.tests" description="Compile module HandyCalculatorCLI"/>
+  
+  <target name="compile.module.handycalculatorcli.production" description="Compile module HandyCalculatorCLI; production classes">
+    <mkdir dir="${handycalculatorcli.output.dir}"/>
+    <javac destdir="${handycalculatorcli.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.handycalculatorcli}/javac">
+      <compilerarg line="${compiler.args.handycalculatorcli}"/>
+      <bootclasspath refid="handycalculatorcli.module.bootclasspath"/>
+      <classpath refid="handycalculatorcli.module.production.classpath"/>
+      <src refid="handycalculatorcli.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.handycalculatorcli"/>
+    </javac>
+    
+    <copy todir="${handycalculatorcli.output.dir}">
+      <fileset dir="${module.handycalculatorcli.basedir}/src/main/java">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+      <fileset dir="${module.handycalculatorcli.basedir}/src/main/resources">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.handycalculatorcli.tests" depends="compile.module.handycalculatorcli.production" description="compile module HandyCalculatorCLI; test classes" unless="skip.tests">
+    <mkdir dir="${handycalculatorcli.testoutput.dir}"/>
+    <javac destdir="${handycalculatorcli.testoutput.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.handycalculatorcli}/javac">
+      <compilerarg line="${compiler.args.handycalculatorcli}"/>
+      <bootclasspath refid="handycalculatorcli.module.bootclasspath"/>
+      <classpath refid="handycalculatorcli.module.classpath"/>
+      <src refid="handycalculatorcli.module.test.sourcepath"/>
+      <patternset refid="excluded.from.compilation.handycalculatorcli"/>
+    </javac>
+    
+    <copy todir="${handycalculatorcli.testoutput.dir}">
+      <fileset dir="${module.handycalculatorcli.basedir}/src/test/java">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="clean.module.handycalculatorcli" description="cleanup module">
+    <delete dir="${handycalculatorcli.output.dir}"/>
+    <delete dir="${handycalculatorcli.testoutput.dir}"/>
+  </target>
+</project>

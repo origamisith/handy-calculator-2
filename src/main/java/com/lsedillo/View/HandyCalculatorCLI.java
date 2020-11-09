@@ -22,6 +22,7 @@ public class HandyCalculatorCLI {
      * This method is called once, initiating the REPL.
      */
     static void mainLoop() {
+
         Scanner s = new Scanner(System.in);
         System.out.print(ANSI_BLUE + "Welcome to the CS Students Handy Calculator! ");
         while (true) {
@@ -52,6 +53,8 @@ public class HandyCalculatorCLI {
             if(input.equalsIgnoreCase("quit")) break;
             System.out.println(ANSI_GREEN + MainController.chooseMethod(input.toLowerCase()) + ANSI_RESET);
         }
+
+
     }
     static void help() {
         try {
