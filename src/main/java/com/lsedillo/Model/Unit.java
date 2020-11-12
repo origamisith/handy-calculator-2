@@ -6,6 +6,10 @@ public abstract class Unit implements UnitConvertible{
     private double value;
     String unit;
 
+    Unit() {
+        this.value = 0;
+        this.unit = "";
+    }
     Unit(double value, String unit) {
         this.value = value;
         this.unit = unit;
@@ -13,6 +17,11 @@ public abstract class Unit implements UnitConvertible{
 
     public double getValue() {return value;}
     public String getUnit() {return unit;}
+
+    @Override
+    public String toString() {
+        return value + " " + unit;
+    }
 
     @Override
     public boolean equals(Object o) {

@@ -4,29 +4,35 @@ public class Time extends Unit{
     private Double seconds;
     private String niceName;
 
-    public static final double SECOND = 1;
-    public static final double MINUTE = 60;
-    public static final double HOUR = 3600;
-    public static final double DAY = 3600 * 24;
-    public static final double WEEK = 3600*24*7;
-    public static final double MONTH = 3600 * 24 * 30.436875;
-    public static final double YEAR = 3600 * 24 * 365;
-
     public Time(Double value, String timeUnit) {
         super(value, timeUnit.toUpperCase());
-        this.seconds = TimeUnit.valueOf(this.getUnit()).seconds;
+        this.seconds = getValue() * TimeUnit.valueOf(this.getUnit()).seconds;
         this.niceName = TimeUnit.valueOf(this.getUnit()).name;
     }
 
-    private double getSeconds() {
-        return seconds;
+    /**
+     * Special constructor that takes a Data and Rate object, and returns the amount of Time in seconds required to
+     * transfer an amount of Data at a particular Rate
+     * @param data The Data object
+     * @param rate The Rate object
+     */
+    public Time(Data data, Rate rate) {
+        this(data.getValue() / (rate.convertTo(data.getUnit() + "/S")).getValue(), "second");
+        Rate convertedRate = (Rate) rate.convertTo(data.getUnit() + "/S");
+        double value = data.getValue() / convertedRate.getValue();
     }
+
 
     public Time convertTo(String other) {
         TimeUnit unit = TimeUnit.valueOf(getUnit());
         TimeUnit otherUnit = TimeUnit.valueOf(other);
-        Double newValue = unit.seconds / otherUnit.seconds;
+        Double newValue = getValue() * unit.seconds / otherUnit.seconds;
         return new Time(newValue, other);
+    }
+
+    @Override
+    public String toString() {
+        return readableTime(seconds);
     }
 
     /**
@@ -67,7 +73,7 @@ public class Time extends Unit{
         HOUR(3600, "hours"),
         DAY(3600 * 24, "days"),
         WEEK(3600*24*7, "weeks"),
-        MONTH(3600 * 24 * 30.436875, "months"),
+        MONTH(3600 * 24 * 30, "months"),
         YEAR(3600 * 24 * 365, "years");
 
         public double seconds;

@@ -34,6 +34,7 @@ public class NumberTest {
         Number newBin= newDec.toBase(Number.BINARY);
         Assertions.assertEquals(correctBin, newBin.getValueString());
     }
+
 //    @Test void shouldMakeValueString() {
 //        Number n = new Number(100);
 //        Number n2 = new Number(101101, 2);

@@ -7,66 +7,61 @@ public class Number{
     private static final String DIGITS= "0123456789ABCDEF";
 
     private final String valueString;
-    private final long value;
+    private final long decValue;
     private final int length;
-    private int base;
+    private final int base;
 
-    public Number(String valueString) {
-        this.valueString = valueString;
-        this.length = valueString.length();
-        this.value = toDecimal().getValue();
-        this.base = DECIMAL;
-    }
 
     public Number(String valueString, int base) {
-        this(valueString);
+        this.valueString = valueString.toUpperCase();
+        this.length = valueString.length();
         this.base = base;
+        this.decValue = toDecimalLong();
     }
 
     public Number(String valueString, String base) {
-        this(valueString);
-        this.base = switch(base.toLowerCase()) {
-            case "hexadecimal" -> HEXADECIMAL;
-            case "binary" -> BINARY;
-            default -> DECIMAL;
-        };
-
+        this.valueString = valueString.toUpperCase();
+        this.length = valueString.length();
+        this.base = parseBase(base);
+        this.decValue = toDecimalLong();
+    }
+    public Number(String valueString) {
+        this(valueString, 10);
     }
 
     public Number(long value) {
-       this.value = value;
-       this.valueString = value + "";
-       this.length = valueString.length();
-       this.base = DECIMAL;
+        this(value + "", 10);
     }
 
 
     public Number operation(char operation, Number other) {
         Number decimalAnswer;
         decimalAnswer = switch (operation) {
-            case '+' -> new Number(this.value + other.value);
-            case '-' -> new Number(this.value - other.value);
-            case '*' -> new Number(this.value * other.value);
-            case '/' -> new Number(this.value / other.value);
-            case '%' -> new Number(this.value % other.value);
+            case '+' -> new Number(this.decValue + other.decValue);
+            case '-' -> new Number(this.decValue - other.decValue);
+            case '*' -> new Number(this.decValue * other.decValue);
+            case '/' -> new Number(this.decValue / other.decValue);
+            case '%' -> new Number(this.decValue % other.decValue);
             default -> new Number(-1);
         };
         return decimalAnswer.toBase(this.base);
     }
-    public Number toDecimal() {
+    public long toDecimalLong() {
         long result = 0;
         for (int i = 0; i < getLength(); i++) {
+            double decimalPlace = Math.pow(base, i);
+            int binDigit = DIGITS.indexOf(valueString.charAt(getLength()-i-1));
             result += Math.pow(base, i) * DIGITS.indexOf(valueString.charAt(getLength() - i - 1));
         }
-        return new Number(result);
+        return result;
     }
 
     public Number toBase(int base) {
-        Number decimal = toDecimal();
+        Number decimal = new Number(decValue);
         if(base == DECIMAL) return decimal;
         long q;
         long r;
-        long whatsLeft = decimal.getValue();
+        long whatsLeft = decimal.getDecValue();
         StringBuilder sb = new StringBuilder();
         do {
             q = whatsLeft / base;
@@ -77,7 +72,18 @@ public class Number{
         return new Number(sb.toString(), base);
     }
 
-    public long getValue() {return value;}
+    public Number toBase(String base) {
+       return toBase(parseBase(base));
+    }
+
+    private int parseBase(String base) {
+        return switch(base.toLowerCase()) {
+            case "hexadecimal" -> HEXADECIMAL;
+            case "binary" -> BINARY;
+            default -> DECIMAL;
+        };
+    }
+    public long getDecValue() {return decValue;}
 
     public int getLength() {return length;}
 
