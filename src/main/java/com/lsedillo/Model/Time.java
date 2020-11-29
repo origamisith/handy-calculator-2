@@ -5,9 +5,9 @@ public class Time extends Unit{
     private String niceName;
 
     public Time(Double value, String timeUnit) {
-        super(value, timeUnit.toUpperCase());
-        this.seconds = getValue() * TimeUnit.valueOf(this.getUnit()).seconds;
-        this.niceName = TimeUnit.valueOf(this.getUnit()).name;
+        super(value, timeUnit);
+        this.seconds = getValue() * TimeUnit.valueOf(this.getUnit().toUpperCase()).seconds;
+        this.niceName = TimeUnit.valueOf(this.getUnit().toUpperCase()).name;
     }
 
     /**
@@ -23,9 +23,9 @@ public class Time extends Unit{
     }
 
 
-    public Time convertTo(String other) {
-        TimeUnit unit = TimeUnit.valueOf(getUnit());
-        TimeUnit otherUnit = TimeUnit.valueOf(other);
+    public Time convertTo(String other)  {
+        TimeUnit unit = TimeUnit.valueOf(getUnit().toUpperCase());
+        TimeUnit otherUnit = TimeUnit.valueOf(other.toUpperCase());
         Double newValue = getValue() * unit.seconds / otherUnit.seconds;
         return new Time(newValue, other);
     }
@@ -73,7 +73,7 @@ public class Time extends Unit{
         HOUR(3600, "hours"),
         DAY(3600 * 24, "days"),
         WEEK(3600*24*7, "weeks"),
-        MONTH(3600 * 24 * 30, "months"),
+        MONTH(3600 * 24 * 30.4375, "months"),
         YEAR(3600 * 24 * 365, "years");
 
         public double seconds;

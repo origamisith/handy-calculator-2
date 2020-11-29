@@ -15,22 +15,30 @@ public class UnitController {
         return converted.toString();
     }
 
+    /**
+     * This method is unique because it may take three or four arguments in the input file.
+     * In order to accommodate for this, I check if the third argument is a number or not. If it is,
+     * this means that the method is converting from a per-second rate to a per-month rate. Otherwise,
+     * the method is converting from a per-month rate to a per-second rate.
+     * @param tokens
+     * @return
+     */
     static String convertMonthlyToBandwidth(String... tokens) {
         int i = 0;
         if(tokens.length >= 8) i+=5; //Skip past "Convert Monthly Usage to Bandwidth"
         double dataUnitsPerMonth = Double.parseDouble(tokens[i++]);
-        String monthDataUnit = tokens[i++];
-        String mysteryToken = tokens[i++];
+        String perMonthDataUnit = tokens[i++];
+        String mysteryToken = tokens[i++]; //Either the number of per-second bandwidth units OR the per-second unit itself
         if(Character.isDigit(mysteryToken.charAt(0))) {
             double dataUnitsPerSecond = Double.parseDouble(mysteryToken);
-            String secondRateUnit = tokens[i];
-            Rate rate = new Rate(dataUnitsPerSecond, secondRateUnit);
-            Rate perMonth = (Rate)rate.convertTo(monthDataUnit + "/month");
-            return dataUnitsPerSecond + " " + secondRateUnit + " is equivalent to " + perMonth.toString();
+            String perSecondRateUnit = tokens[i];
+            Rate rate = new Rate(dataUnitsPerSecond, perSecondRateUnit);
+            Rate perMonth = (Rate)rate.convertTo(perMonthDataUnit + "/month");
+            return dataUnitsPerSecond + " " + perSecondRateUnit + " is equivalent to " + perMonth.toString();
         }
-        String secondRateUnit = mysteryToken;
-        Rate perMonth = new Rate(dataUnitsPerMonth, monthDataUnit + "/month");
-        Rate perSecond = (Rate)perMonth.convertTo(secondRateUnit);
-        return dataUnitsPerMonth + " " + monthDataUnit + " is equivalent to " + perSecond.toString();
+        String perSecondRateUnit = mysteryToken;
+        Rate perMonth = new Rate(dataUnitsPerMonth, perMonthDataUnit + "/month");
+        Rate perSecond = (Rate)perMonth.convertTo(perSecondRateUnit);
+        return dataUnitsPerMonth + " " + perMonthDataUnit + " is equivalent to " + perSecond.toString();
     }
 }

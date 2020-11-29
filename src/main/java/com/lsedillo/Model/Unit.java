@@ -29,11 +29,6 @@ public abstract class Unit implements UnitConvertible{
         if (o == null || getClass() != o.getClass()) return false;
         Unit unit1 = (Unit) o;
         return Double.compare(unit1.value, value) == 0 &&
-                Objects.equals(unit, unit1.unit);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(value, unit);
+                unit.equalsIgnoreCase(unit1.unit);
     }
 }

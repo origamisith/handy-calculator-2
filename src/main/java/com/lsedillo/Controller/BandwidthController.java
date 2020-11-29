@@ -42,7 +42,7 @@ public class BandwidthController {
 
         String result = "Actual bandwidth need is " + perSecond.getValue() + " Mbits/s or "
                 + perMonth.getValue() + "GB per month";
-        result += "\nWith redundancy factor of "+ redundancy+ ", the bandwidth need is " + perSecond.getValue() * redundancy + "Mbits/s or" +
+        result += "\nWith redundancy factor of "+ redundancy+ ", the bandwidth need is " + perSecond.getValue() * redundancy + " Mbits/s or " +
                 perMonth.getValue() * redundancy +  " GB per month";
         return result;
     }

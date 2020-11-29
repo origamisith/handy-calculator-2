@@ -6,8 +6,8 @@ public class Data extends Unit{
 
     public Data(Double value, String dataUnit) {
         super(value, parseName(dataUnit));
-        this.bits = DataUnit.valueOf(getUnit()).bits;
-        this.niceName = DataUnit.valueOf(getUnit()).name;
+        this.bits = DataUnit.valueOf(getUnit().toUpperCase()).bits;
+        this.niceName = DataUnit.valueOf(getUnit().toUpperCase()).name;
     }
     public Data(String value, String dataUnit) {
         this(Double.parseDouble(value), dataUnit);
@@ -17,7 +17,7 @@ public class Data extends Unit{
     }
 
     public Data convertTo(String other) {
-        DataUnit otherUnit = DataUnit.valueOf(parseName(other));
+        DataUnit otherUnit = DataUnit.valueOf(parseName(other).toUpperCase());
         Double newValue = getValue() * getBits() / otherUnit.bits;
         return new Data(newValue, other);
     }
@@ -34,15 +34,16 @@ public class Data extends Unit{
      * @return
      */
     private static String parseName(String dataUnit) {
-        String abbreviated = dataUnit.toUpperCase();
+        String result = dataUnit;
+        String resultUpperCase = result.toUpperCase();
         //If the unit had 'y' it would be a byte unit, and not need to be changed.
         //If the unit had 'b' as the first or second character it would already be abbreviated
-        if(abbreviated.indexOf('Y') == -1 && abbreviated.indexOf('B') > 1 ) {
-            abbreviated  = abbreviated.charAt(0) + abbreviated.substring(abbreviated.indexOf('B'));
+        if(resultUpperCase.indexOf('Y') == -1 && resultUpperCase.indexOf('B') > 1 ) {
+            result  = result.charAt(0) + result.substring(resultUpperCase.indexOf('B'));
         }
         //If the last character isn't an 'S', add an 'S'
-        if(!abbreviated.endsWith("S")) abbreviated += "S";
-        return abbreviated.toUpperCase();
+        if(!resultUpperCase.endsWith("S")) result += "s";
+        return result/*.toUpperCase()*/;
     }
 
     public enum DataUnit {

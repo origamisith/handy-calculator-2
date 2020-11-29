@@ -8,19 +8,39 @@ import com.lsedillo.Model.Number;
  */
 public class NumberController {
     static String operation(String...tokens) {
-        int i = 0;
-        if(tokens.length == 5) i++; //skip "Calculate"
-        String base = tokens[i++];
-        char op = tokens[i++].charAt(0);
-        String n1 = tokens[i++];
-        String n2 = tokens[i];
+        String base;
+        char op;
+        String n1;
+        String n2;
+        Number b1;
+        Number b2;
+        Number result;
 
-        Number b1 = new Number(n1, base);
-        Number b2 = new Number(n2, base);
-        Number result = b1.operation(op, b2);
-        if (op == '/') {
-            Number remainder = b1.operation('%', b2);
-            return result.toString() + " Remainder: " + remainder.toString();
+        try {
+            int i = 0;
+            if (tokens.length == 5) i++; //skip "Calculate"
+            base = tokens[i++];
+            op = tokens[i++].charAt(0);
+            n1 = tokens[i++];
+            n2 = tokens[i];
+        } catch(ArrayIndexOutOfBoundsException e) {
+            return "Wrong number of arguments";
+        }
+
+        try {
+            b1 = new Number(n1, base);
+            b2 = new Number(n2, base);
+        } catch (IllegalArgumentException e) {
+            return "Illegal characters";
+        }
+        try {
+            result = b1.operation(op, b2);
+            if (op == '/') {
+                Number remainder = b1.operation('%', b2);
+                return result.toString() + " Remainder: " + remainder.toString();
+            }
+        } catch (IllegalArgumentException e) {
+            return "Invalid operator";
         }
         return result.toString();
     }

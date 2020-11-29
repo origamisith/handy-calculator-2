@@ -7,8 +7,8 @@
 7) Convert Data Unit to {bits | kilobits | megabits | gigabits | terabits | Bytes | Kilobytes
      | Megabytes | Gigabytes | Terabytes} [number of units]
 8) Calculate Download/Upload Time [file size] {Bytes | Kilobytes | Megabytes | Gigabytes | Terabytes}
-                                              {bit/s | Kbit/s | Mbit/s | Gbit/s | Tbit/s}
-9) Calculate Website Bandwidth [monthly usage] {per second | per minute | per hour | per day | per week | per month | per year}
+                                  [bandwidth size] {bit/s | Kbit/s | Mbit/s | Gbit/s | Tbit/s}
+9) Calculate Website Bandwidth [usage amount] {per second | per minute | per hour | per day | per week | per month | per year}
     [average page size] {Bytes | Kilobytes | Megabytes | Gigabytes | Terabytes} [redundancy factor]
 10) Convert Monthly Usage to Bandwidth
     [monthly usage]{Bytes | Kilobytes | Megabytes | Gigabytes | Terabytes}

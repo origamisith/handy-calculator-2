@@ -25,7 +25,6 @@ public class HandyCalculatorCLI {
 
         Scanner s = new Scanner(System.in);
         System.out.print(ANSI_BLUE + "Welcome to the CS Students Handy Calculator! ");
-        while (true) {
             System.out.println("Do you have a file to read from? (y/N)" + ANSI_RESET);
             String input = s.nextLine();
             if(input.equalsIgnoreCase("y") || input.equalsIgnoreCase("yes")) {
@@ -43,6 +42,7 @@ public class HandyCalculatorCLI {
                     System.out.println(ANSI_RED + "File does not exist: " + e + ANSI_RESET);
                 }
             }
+        while (true) {
             System.out.println(ANSI_BLUE + "Enter a command. Type 'help' if needed" + ANSI_RESET);
             input = s.nextLine();
             if(input.equalsIgnoreCase("help")) {
@@ -58,7 +58,7 @@ public class HandyCalculatorCLI {
     }
     static void help() {
         try {
-            Scanner s = new Scanner(Path.of("com/lsedillo/View/Help"), StandardCharsets.UTF_8);
+            Scanner s = new Scanner(Path.of("src/main/java/com/lsedillo/View/Help"), StandardCharsets.UTF_8);
             while(s.hasNext()) {
                 System.out.println(s.nextLine());
             }
