@@ -22,7 +22,7 @@ public class MainController {
         String[] tokens = line/*.toLowerCase()*/.split(" ");
         if (tokens[0].equalsIgnoreCase("calculate")) return calculate(tokens);
         if (tokens[0].equalsIgnoreCase("convert")) return convert(tokens);
-        else return HandyCalculatorCLI.ANSI_RED + "Invalid instruction \"" + tokens[0] + "\".";
+        else return CommandLine.ANSI_RED + "Invalid instruction \"" + tokens[0] + "\".";
     }
 
     /**
@@ -32,10 +32,10 @@ public class MainController {
      */
     private static String calculate(String[] tokens) {
         return switch (tokens[1].toLowerCase()) {
-            case "binary", "hexadecimal" -> NumberController.operation(tokens);
+            case "binary", "decimal", "hexadecimal" -> NumberController.operation(tokens);
             case "download/upload" -> BandwidthController.downUpTime(tokens);
             case "website" -> BandwidthController.websiteBandwidth(tokens);
-            default -> HandyCalculatorCLI.ANSI_RED + "Could not calculate \"" + tokens[1] + "\": invalid syntax.";
+            default -> CommandLine.ANSI_RED + "Could not calculate \"" + tokens[1] + "\": invalid syntax.";
         };
     }
 
@@ -49,7 +49,7 @@ public class MainController {
             case "binary", "decimal", "hexadecimal" -> NumberController.convertBase(tokens);
             case "data" -> UnitController.convertData(tokens);
             case "monthly" -> UnitController.convertMonthlyToBandwidth(tokens);
-            default -> HandyCalculatorCLI.ANSI_RED + "Could not convert; unknown keyword \"" + tokens[1] + "\".";
+            default -> CommandLine.ANSI_RED + "Could not convert; unknown keyword \"" + tokens[1] + "\".";
         };
     }
 }

@@ -38,7 +38,7 @@ public class Rate extends Unit{
     public Unit convertTo(String unit) {
         String newDataUnit = unit.substring(0, unit.indexOf("/"))/*.toUpperCase()*/;
         String newTimeUnit = unit.substring(unit.indexOf("/") + 1)/*.toUpperCase()*/;
-        if(newTimeUnit.equals("s")) newTimeUnit = "second";
+        if(newTimeUnit.equalsIgnoreCase("s")) newTimeUnit = "second";
         Time newTime = time.convertTo(newTimeUnit);
         Data newData = data.convertTo(newDataUnit);
         return new Rate(newData, newTime);

@@ -7,7 +7,7 @@ import com.lsedillo.Model.Number;
  * OR as a normal set of arguments ("binary", "decimal", 1011)
  */
 public class NumberController {
-    static String operation(String...tokens) {
+    public static String operation(String...tokens) {
         String base;
         char op;
         String n1;
@@ -41,6 +41,8 @@ public class NumberController {
             }
         } catch (IllegalArgumentException e) {
             return "Invalid operator";
+        } catch(ArithmeticException e) {
+            return "Divide by 0";
         }
         return result.toString();
     }
@@ -50,7 +52,7 @@ public class NumberController {
      * setting the array members to variables.
      * @param tokens Should contain the original base, [to] the new base, and the number value
      */
-    static String convertBase(String...tokens) {
+    public static String convertBase(String...tokens) {
         int i = 0;
         if(tokens.length == 5) i++; //Skip "Convert"
         String base = tokens[i++];
@@ -60,5 +62,9 @@ public class NumberController {
         Number n = new Number(value, base);
         Number converted = n.toBase(otherBase);
         return converted.toString();
+    }
+
+    public static void main(String[] args) {
+        System.out.println(operation("decimal", "+", "10", "5"));
     }
 }

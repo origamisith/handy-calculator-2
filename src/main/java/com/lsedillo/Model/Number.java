@@ -60,7 +60,7 @@ public class Number{
      * @return  The result of the operation
      * @throws IllegalArgumentException If the operator is invalid
      */
-    public Number operation(char operation, Number other) throws IllegalArgumentException {
+    public Number operation(char operation, Number other) throws IllegalArgumentException, ArithmeticException {
         Number decimalAnswer;
 
         decimalAnswer = switch (operation) {
