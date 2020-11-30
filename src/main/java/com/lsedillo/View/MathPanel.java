@@ -133,10 +133,10 @@ public class MathPanel extends JPanel implements DocumentListener, ActionListene
                     || mode == HEXADECIMAL && input.matches(hexConversionPattern)
                     || mode == BINARY && input.matches(binConversionPattern)) {
                 result = NumberController.convertBase(mode, toBase, input);
-//                int x = 5;
-//                for(int i = 0; i < 0; i++) {
-//                   x=i;
-//                }
+                int x = 5;
+                for(int i = 0; i < 100000; i++) {
+                   x=i;
+                }
 //                System.out.println("I don't know why i need this but the program breaks without it. No, seriously, I'm talking about this actual println line");
             }
 

@@ -41,14 +41,17 @@ public class MathBar extends JPanel implements ActionListener {
         if(actionEvent.getSource() == binBtn) {
             parent.setMode(MathPanel.BINARY);
             parent.setToBase(MathPanel.BINARY);
+            parent.parseInput();
         }
         if(actionEvent.getSource() == decBtn) {
             parent.setMode(MathPanel.DECIMAL);
             parent.setToBase(MathPanel.DECIMAL);
+            parent.parseInput();
         }
         if(actionEvent.getSource() == hexBtn) {
             parent.setMode(MathPanel.HEXADECIMAL);
             parent.setToBase(MathPanel.HEXADECIMAL);
+            parent.parseInput();
         }
     }
 }
