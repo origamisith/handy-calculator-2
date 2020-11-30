@@ -40,12 +40,15 @@ public class MathBar extends JPanel implements ActionListener {
     public void actionPerformed(ActionEvent actionEvent) {
         if(actionEvent.getSource() == binBtn) {
             parent.setMode(MathPanel.BINARY);
+            parent.setToBase(MathPanel.BINARY);
         }
         if(actionEvent.getSource() == decBtn) {
             parent.setMode(MathPanel.DECIMAL);
+            parent.setToBase(MathPanel.DECIMAL);
         }
         if(actionEvent.getSource() == hexBtn) {
             parent.setMode(MathPanel.HEXADECIMAL);
+            parent.setToBase(MathPanel.HEXADECIMAL);
         }
     }
 }

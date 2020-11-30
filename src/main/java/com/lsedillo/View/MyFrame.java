@@ -15,23 +15,25 @@ public class MyFrame extends JFrame{
     public MyFrame(String title) {
         super(title);
 //        getContentPane().setLayout(new BoxLayout(getContentPane(), BoxLayout.PAGE_AXIS));
-        add(new MenuBar(this), BorderLayout.NORTH);
 
-        var mainPanel = new JPanel();
-        mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.PAGE_AXIS));
-        mainPanel.setAlignmentX(JPanel.LEFT_ALIGNMENT);
+        EventQueue.invokeLater(()->{
+
+            add(new MenuBar(this), BorderLayout.NORTH);
+
+            var mainPanel = new JPanel();
+            mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.PAGE_AXIS));
+            mainPanel.setAlignmentX(JPanel.LEFT_ALIGNMENT);
 //        var mathPanel = new MathPanel();
-        dataPanel = new DataPanel(this);
+            dataPanel = new DataPanel(this);
 
-        mainPanel.add(new MathPanel());
-//        mainPanel.add(new MathBar());
+            var mathPanel = new MathPanel();
+            mainPanel.add(mathPanel);
+            mathPanel.parseInput();
 
-//        mainPanel.add(dataPanel);
-//        add(new MathPanel());
-//        add(new MathPanel());
-        add(mainPanel);
-        pack();
-        setVisible(true);
+            add(mainPanel);
+            pack();
+            setVisible(true);
+        });
     }
 
     @Override
@@ -52,20 +54,20 @@ public class MyFrame extends JFrame{
     }
 
 }
-    class MyFormat extends NumberFormat {
+class MyFormat extends NumberFormat {
 
-        @Override
-        public StringBuffer format(double v, StringBuffer stringBuffer, FieldPosition fieldPosition) {
-            return null;
-        }
-
-        @Override
-        public StringBuffer format(long l, StringBuffer stringBuffer, FieldPosition fieldPosition) {
-            return null;
-        }
-
-        @Override
-        public Number parse(String s, ParsePosition parsePosition) {
-            return null;
-        }
+    @Override
+    public StringBuffer format(double v, StringBuffer stringBuffer, FieldPosition fieldPosition) {
+        return null;
     }
+
+    @Override
+    public StringBuffer format(long l, StringBuffer stringBuffer, FieldPosition fieldPosition) {
+        return null;
+    }
+
+    @Override
+    public Number parse(String s, ParsePosition parsePosition) {
+        return null;
+    }
+}

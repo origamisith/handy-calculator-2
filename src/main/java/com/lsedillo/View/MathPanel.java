@@ -16,6 +16,7 @@ public class MathPanel extends JPanel implements DocumentListener, ActionListene
 {
     JLabel answer;
     JTextArea textArea;
+    JComboBox<String> chooseToBase;
     String mode;
     String toBase;
     public static final String BINARY = "Binary";
@@ -26,8 +27,8 @@ public class MathPanel extends JPanel implements DocumentListener, ActionListene
     public MathPanel() {
         input = "1100+1010";
 
-        setMode(BINARY);
-
+        mode = BINARY;
+        toBase = BINARY;
         setAlignmentX(JPanel.LEFT_ALIGNMENT);
         setLayout(new GridBagLayout());
         var c = new GridBagConstraints();
@@ -52,119 +53,103 @@ public class MathPanel extends JPanel implements DocumentListener, ActionListene
         add(textArea, c);
 
         MyButton clear = new MyButton("clear");
-        clear.addActionListener(e->{
-            textArea.setText("");
-            input = "";
-        });
+        clear.addActionListener(e->clear());
         c.gridx = 2;
         add(clear, c);
 
         c.gridx=3;
-        String[] bases = {"To Binary", "To Decimal", "To Hexadecimal"};
-        var chooseBase = new JComboBox<String>(bases);
-        chooseBase.setSelectedIndex(0);
-        chooseBase.addActionListener(this);
-        add(chooseBase, c);
+        String[] bases = {BINARY, DECIMAL, HEXADECIMAL};
+        chooseToBase = new JComboBox<String>(bases);
+        chooseToBase.setSelectedItem(toBase);
+        chooseToBase.addActionListener(this);
+        add(chooseToBase, c);
         c.gridx = 1;
         c.gridy = 2;
         c.gridwidth = 2;
         answer = new MyLabel("");
-//        answer = new MyLabel("Answer: +" + parseInput());
         add(answer, c);
-        parseInput();
-
-//        add(new JLabel("Answer"), c);
     }
 
+    private void clear() {
+        textArea.setText("");
+        input = "";
+        chooseToBase.setSelectedItem(mode);
+    }
     public void setMode(String mode) {
         this.mode = mode;
-        this.toBase = "To " + mode;
+        setToBase(mode);
+        chooseToBase.setSelectedItem(toBase);
+    }
+
+    public void setToBase(String toBase) {
+        this.toBase = toBase;
+//        parseInput();
     }
 
     @Override
     public void insertUpdate(DocumentEvent documentEvent) {
-        Runnable parse = new Runnable() {
-            @Override
-            public void run() {
-                parseInput();
-            }
-        };
-        SwingUtilities.invokeLater(parse);
+        parseInput();
     }
 
     @Override
     public void removeUpdate(DocumentEvent documentEvent) {
-        Runnable parse = new Runnable() {
-            @Override
-            public void run() {
-                parseInput();
-            }
-        };
-        SwingUtilities.invokeLater(parse);
+        parseInput();
     }
 
     @Override
     public void changedUpdate(DocumentEvent documentEvent) {
-        Runnable parse = new Runnable() {
-            @Override
-            public void run() {
-                parseInput();
-            }
-        };
-        SwingUtilities.invokeLater(parse);
+        parseInput();
     }
-    private String parseInput() {
-        input = textArea.getText();
-        String result = "Please Enter Command";
-        String decOperationPattern = "[0-9]+[*\\/\\-+][0-9]+";
-        String hexOperationPattern = "[0-9,a-f,A-F]+[*\\/\\-+][0-9,a-f, A-F]+";
-        String binOperationPattern = "[0,1]+[*\\/\\-+][0,1]+";
-        String decConversionPattern = "\\[0-9]+";
-        String hexConversionPattern = "\\[0-9,a-f,A-F]+";
-        String binConversionPattern = "\\[0,1]+";
+     public void parseInput() {
+//        SwingUtilities.invokeLater(()-> {
+            String result = "Please Enter Command";
+            input = textArea.getText();
+            String decOperationPattern = "[0-9]+[*\\/\\-+][0-9]+";
+            String hexOperationPattern = "[0-9,a-f,A-F]+[*\\/\\-+][0-9,a-f, A-F]+";
+            String binOperationPattern = "[0,1]+[*\\/\\-+][0,1]+";
+            String decConversionPattern = "[0-9]+";
+            String hexConversionPattern = "[0-9,a-f,A-F]+";
+            String binConversionPattern = "[0,1]+";
 
-        if(mode == DECIMAL &&input.matches(decOperationPattern )
-                || mode == HEXADECIMAL && input.matches(hexOperationPattern)
-                || mode == BINARY && input.matches(binOperationPattern)) {
-            String charPattern = "[*\\/\\-+]";
-            String first = input.split(charPattern)[0];
-            String second = input.split(charPattern)[1];
-            Matcher m = Pattern.compile(charPattern).matcher(input);
-            int index = 0;
-            while(m.find()) {
-                index = m.start();
+            if(mode == DECIMAL &&input.matches(decOperationPattern )
+                    || mode == HEXADECIMAL && input.matches(hexOperationPattern)
+                    || mode == BINARY && input.matches(binOperationPattern)) {
+                String charPattern = "[*\\/\\-+]";
+                String first = input.split(charPattern)[0];
+                String second = input.split(charPattern)[1];
+                Matcher m = Pattern.compile(charPattern).matcher(input);
+                int index = 0;
+                while(m.find()) {
+                    index = m.start();
+                }
+                String operator = "" + input.charAt(index);
+                String unconverted = NumberController.operation(mode, operator, first, second);
+                if(toBase.equalsIgnoreCase(mode)) result = unconverted;
+                else result = NumberController.convertBase(mode, toBase, unconverted);
             }
-            String operator = "" + input.charAt(index);
-            String unconverted = NumberController.operation(mode, operator, first, second);
-            String converted;
-            if(toBase.equalsIgnoreCase("To " + mode)) converted = unconverted;
-            else converted = MainController.chooseMethod("Convert Decimal " + toBase + " " + unconverted);
-            result= converted;
-        }
 
 
-        if(mode == DECIMAL && input.matches(decConversionPattern)
-                || mode == HEXADECIMAL && input.matches(hexConversionPattern)
-                || mode == BINARY && input.matches(binConversionPattern)) {
-            result = NumberController.convertBase(mode, toBase.split(" ")[1], input);
-        }
+            else if(mode == DECIMAL && input.matches(decConversionPattern)
+                    || mode == HEXADECIMAL && input.matches(hexConversionPattern)
+                    || mode == BINARY && input.matches(binConversionPattern)) {
+                result = NumberController.convertBase(mode, toBase, input);
+//                int x = 5;
+//                for(int i = 0; i < 0; i++) {
+//                   x=i;
+//                }
+//                System.out.println("I don't know why i need this but the program breaks without it. No, seriously, I'm talking about this actual println line");
+            }
 
             answer.setText(result);
-        return result;
+//        });
     }
 
 
     @Override
     public void actionPerformed(ActionEvent actionEvent) {
         JComboBox cb = (JComboBox)actionEvent.getSource();
-        String base = (String)cb.getSelectedItem();
-        toBase = base;
-        Runnable parse = new Runnable() {
-            @Override
-            public void run() {
-                parseInput();
-            }
-        };
-        SwingUtilities.invokeLater(parse);
+        toBase = (String)cb.getSelectedItem();
+//        SwingUtilities.invokeLater(this::parseInput);
+        parseInput();
     }
 }
