@@ -4,13 +4,18 @@ import com.lsedillo.Controller.MainController;
 import com.lsedillo.Controller.NumberController;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import javax.swing.plaf.basic.BasicBorders;
 import java.awt.*;
+import java.awt.datatransfer.StringSelection;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import static javax.swing.text.StyleConstants.Size;
 
 public class MathPanel extends JPanel implements DocumentListener, ActionListener
 {
@@ -37,37 +42,69 @@ public class MathPanel extends JPanel implements DocumentListener, ActionListene
         c.fill = GridBagConstraints.NONE;
         c.weightx = 0.5;
         c.weighty = 0.5;
-        c.gridy = 1;
-        c.gridheight = 2;
+        c.gridy = 0;
+        c.gridheight = 5;
+        c.ipady=50;
+        c.insets = new Insets(0,5,0,45);
         add(new MathBar(this), c);
+        c.weightx = 0;
 
-
-        c.weightx = 1;
+        c.ipady  = 0;
+        c.fill=GridBagConstraints.HORIZONTAL;
+        c.weightx = 0.5;
         c.gridx = 1;
-        c.gridy = 1;
+        c.gridy = 0;
         c.gridheight = 1;
-        c.insets = new Insets(100, 0, 0, 0);
-        textArea = new JTextArea(input, 2, 20);
+        c.gridwidth = 2;
+        c.insets = new Insets(50, 0, 0, 0);
+        textArea = new JTextArea(input, 1, 20);
+        textArea.setMaximumSize(new Dimension(50, 40));
+        textArea.setLineWrap(true);
         textArea.setFont(new Font(Font.DIALOG, Font.PLAIN, 30));
         textArea.getDocument().addDocumentListener(this);
         add(textArea, c);
 
-        MyButton clear = new MyButton("clear");
+//        c.insets = new Insets(0,0,0,0);
+        c.fill=GridBagConstraints.NONE;
+        c.gridy=0;
+        c.weightx = 0.0;
+        c.gridx=4;
+        MyButton clear = new MyButton("Clear");
+        clear.setPreferredSize(new Dimension(100, textArea.getPreferredSize().height));
         clear.addActionListener(e->clear());
-        c.gridx = 2;
         add(clear, c);
 
-        c.gridx=3;
+        c.gridx = 7;
+        c.insets = new Insets(50,0,0,25);
+        add(new MyLabel("to", 30),c);
+
+        c.gridx=10;
         String[] bases = {BINARY, DECIMAL, HEXADECIMAL};
         chooseToBase = new JComboBox<String>(bases);
+        chooseToBase.setFont(new Font(Font.DIALOG, Font.PLAIN, 25));
         chooseToBase.setSelectedItem(toBase);
         chooseToBase.addActionListener(this);
         add(chooseToBase, c);
+
         c.gridx = 1;
         c.gridy = 2;
         c.gridwidth = 2;
-        answer = new MyLabel("");
+        c.anchor = GridBagConstraints.CENTER;
+        answer = new MyLabel("", 30);
+        System.out.println(textArea.getPreferredSize().width);
+        answer.setPreferredSize(new Dimension(new Dimension(textArea.getPreferredSize().width, 40)));
+//        answer.set
         add(answer, c);
+
+        c.gridx = 3;
+        var copyBtn = new MyButton("Copy");
+        copyBtn.addActionListener(a->{
+            Toolkit.getDefaultToolkit().getSystemClipboard()
+                    .setContents(new StringSelection(answer.getText().split(" ")[1]), null);
+        });
+        add(copyBtn,c);
+
+        parseInput();
     }
 
     private void clear() {
@@ -79,6 +116,7 @@ public class MathPanel extends JPanel implements DocumentListener, ActionListene
         this.mode = mode;
         setToBase(mode);
         chooseToBase.setSelectedItem(toBase);
+        parseInput();
     }
 
     public void setToBase(String toBase) {
@@ -102,7 +140,7 @@ public class MathPanel extends JPanel implements DocumentListener, ActionListene
     }
      public void parseInput() {
 //        SwingUtilities.invokeLater(()-> {
-            String result = "Please Enter Command";
+            String result = "¯\\_(ツ)_/¯";
             input = textArea.getText();
             String decOperationPattern = "[0-9]+[*\\/\\-+][0-9]+";
             String hexOperationPattern = "[0-9,a-f,A-F]+[*\\/\\-+][0-9,a-f, A-F]+";
@@ -133,14 +171,14 @@ public class MathPanel extends JPanel implements DocumentListener, ActionListene
                     || mode == HEXADECIMAL && input.matches(hexConversionPattern)
                     || mode == BINARY && input.matches(binConversionPattern)) {
                 result = NumberController.convertBase(mode, toBase, input);
-                int x = 5;
-                for(int i = 0; i < 100000; i++) {
-                   x=i;
-                }
+//                int x = 5;
+//                for(int i = 0; i < 100000; i++) {
+//                   x=i;
+//                }
 //                System.out.println("I don't know why i need this but the program breaks without it. No, seriously, I'm talking about this actual println line");
             }
 
-            answer.setText(result);
+            answer.setText("Result: " + result);
 //        });
     }
 

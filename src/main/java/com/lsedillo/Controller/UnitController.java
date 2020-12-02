@@ -3,8 +3,10 @@ package com.lsedillo.Controller;
 import com.lsedillo.Model.Data;
 import com.lsedillo.Model.Rate;
 
+import java.util.Arrays;
+
 public class UnitController {
-    static String convertData(String... tokens) {
+    public static String convertData(String... tokens) {
         int i = 0;
         if(tokens.length == 6) i+=4; //Skip past "Convert Data Unit To"
         String unitString = tokens[i++];
@@ -12,6 +14,12 @@ public class UnitController {
 
         Data data = new Data(dataAmount, "bits");
         Data converted = data.convertTo(unitString);
+        return converted.toString();
+    }
+    public static String convertData2(String unitString, String dataAmountString, String toUnit) {
+        Double dataAmount = Double.parseDouble(dataAmountString);
+        Data data = new Data(dataAmount, unitString);
+        Data converted = data.convertTo(toUnit);
         return converted.toString();
     }
 
@@ -23,7 +31,7 @@ public class UnitController {
      * @param tokens
      * @return
      */
-    static String convertMonthlyToBandwidth(String... tokens) {
+    public static String convertMonthlyToBandwidth(String... tokens) {
         int i = 0;
         if(tokens.length >= 8) i+=5; //Skip past "Convert Monthly Usage to Bandwidth"
         double dataUnitsPerMonth = Double.parseDouble(tokens[i++]);

@@ -41,6 +41,8 @@ public class Time extends Unit{
      * @return The human-readable time
      */
     public static String readableTime(double seconds) {
+        if(seconds < 1) return seconds/1000.0 + " milliseconds";
+        if(seconds < 60) return seconds + " seconds";
         StringBuilder result = new StringBuilder();
         int monthsLeft = readableAux((int)seconds, result, TimeUnit.YEAR);
         int weeksLeft = readableAux(monthsLeft, result, TimeUnit.MONTH);
@@ -49,6 +51,8 @@ public class Time extends Unit{
         int minutesLeft = readableAux(hoursLeft, result, TimeUnit.HOUR);
         int secondsLeft = readableAux(minutesLeft, result, TimeUnit.MINUTE);
         result.append((secondsLeft < 1) ? "" : secondsLeft + " " + TimeUnit.SECOND.name);
+//        System.out.println("Readable " + result + ", " + seconds);
+
         return result.toString();
     }
 

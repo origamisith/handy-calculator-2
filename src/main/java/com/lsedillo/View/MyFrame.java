@@ -23,12 +23,10 @@ public class MyFrame extends JFrame{
             var mainPanel = new JPanel();
             mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.PAGE_AXIS));
             mainPanel.setAlignmentX(JPanel.LEFT_ALIGNMENT);
-//        var mathPanel = new MathPanel();
-            dataPanel = new DataPanel(this);
-
-            var mathPanel = new MathPanel();
-            mainPanel.add(mathPanel);
-            mathPanel.parseInput();
+            JPanel grid = new JPanel(new GridLayout(1,2));
+            grid.add(new MathPanel());
+            mainPanel.add(grid);
+            mainPanel.add(new DataPanel(this));
 
             add(mainPanel);
             pack();
@@ -41,33 +39,12 @@ public class MyFrame extends JFrame{
 
         Toolkit kit = Toolkit.getDefaultToolkit();
         Dimension screenSize = kit.getScreenSize();
+
         setSize(new Dimension(screenSize.width/2, screenSize.height/2));
-        setLocation (screenSize.width/2-getSize().width*2,
-                screenSize.height/2 - getSize().height*2);
-        setResizable(false);
+        setLocation (screenSize.width/2-getSize().width/2,
+                screenSize.height/2-getSize().height/2);
+//        setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         super.setVisible(b);
-    }
-
-    public void refreshDataPanel(String mode) {
-        dataPanel.refresh(mode);
-    }
-
-}
-class MyFormat extends NumberFormat {
-
-    @Override
-    public StringBuffer format(double v, StringBuffer stringBuffer, FieldPosition fieldPosition) {
-        return null;
-    }
-
-    @Override
-    public StringBuffer format(long l, StringBuffer stringBuffer, FieldPosition fieldPosition) {
-        return null;
-    }
-
-    @Override
-    public Number parse(String s, ParsePosition parsePosition) {
-        return null;
     }
 }

@@ -15,8 +15,7 @@ public class MathBar extends JPanel implements ActionListener {
         this.parent = parent;
 //        setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
         setLayout(new GridLayout(5, 1));
-        setAlignmentX(JPanel.LEFT_ALIGNMENT);
-
+//        setAlignmentX(JPanel.LEFT_ALIGNMENT);
         var btnGrp = new ButtonGroup();
         binBtn = new MyJToggleButton("Binary");
         binBtn.setSelected(true); //default mode
@@ -31,7 +30,6 @@ public class MathBar extends JPanel implements ActionListener {
         hexBtn.addActionListener(this);
 
         add(new MyLabel("Math", 30));
-        add(Box.createRigidArea(new Dimension(0, 5)));
         add(binBtn);
         add(decBtn);
         add(hexBtn);

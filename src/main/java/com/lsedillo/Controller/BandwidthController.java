@@ -11,7 +11,7 @@ public class BandwidthController {
      * @param tokens
      * @return
      */
-    static String downUpTime(String...tokens) {
+    public static String downUpTime(String...tokens) {
         int i = 0;
         if(tokens.length == 7) i+=3; //skip "Calculate download/upload time"
         String fileSize = tokens[i++];
@@ -24,7 +24,7 @@ public class BandwidthController {
         return time.toString();
     }
 
-    static String websiteBandwidth(String...tokens) {
+    public static String websiteBandwidth(String...tokens) {
         int i = 0;
         if(tokens.length == 9) i+=3; //skip "Calculate website calculator"
         double views = Double.parseDouble(tokens[i++]);

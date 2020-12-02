@@ -65,10 +65,13 @@ public class MenuBar extends JPanel implements ActionListener {
                     sb.append(s.nextLine()).append("\n");
                 }
             } catch( IOException exception) {
-                if(exception instanceof NoSuchFileException) sb.append("Help file not found: " + exception);
-                else sb.append("Error: " + exception);
+                if(exception instanceof NoSuchFileException) sb.append("Help file not found: ").append(exception);
+                else sb.append("Error: ").append(exception);
             }
-            JOptionPane.showMessageDialog(frame, sb.toString(), "Input File Syntax", JOptionPane.PLAIN_MESSAGE);
+            JTextArea area = new JTextArea(sb.toString());
+            area.setFont(new Font(Font.DIALOG, Font.PLAIN, 20));
+            area.setEditable(false);
+            JOptionPane.showMessageDialog(frame, area, "Input File Syntax", JOptionPane.PLAIN_MESSAGE);
         }
     }
 }

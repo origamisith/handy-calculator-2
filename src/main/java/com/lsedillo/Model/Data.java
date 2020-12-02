@@ -24,7 +24,7 @@ public class Data extends Unit{
 
     @Override
     public String toString() {
-        return getValue() + niceName;
+        return getValue() + " " + niceName;
     }
 
     /**
